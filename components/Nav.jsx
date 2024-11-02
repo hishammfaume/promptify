@@ -10,6 +10,7 @@ const Nav = () => {
 
   //sign in using google and next auth
   const [providers, setProviders] = useState(null);
+  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
     const setProviders = async () => {
@@ -68,7 +69,29 @@ const Nav = () => {
       </div>
 
         {/**mobile navigation */}
-    <div className="sm:hidden flex relative"></div>
+    <div className="sm:hidden flex relative">
+      {isUserLoggedIn ? 
+      <div className="flex">
+        <Image
+                width={37}
+                height={37}
+                src="/assets/images/logo.svg"
+                alt="profile"
+                className="rounded-full"
+                onClick={()=> setToggleDropdown((prev)=> !prev)}
+              />
+              {toggleDropdown && <div className="absolute top-12 right-0 bg-white p-2 rounded-lg shadow-md"></div>}
+      </div> :<>
+       {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                key={provider.name}                  type="button"
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >Sign In</button>
+              ))}
+      </>}
+    </div>
     </nav>
   );
 };
