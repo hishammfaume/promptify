@@ -23,7 +23,7 @@ const MyProfile = () => {
       
      // console.log(data._id)
     }
-    fetchPosts();
+    if(session?.user.id) fetchPosts();
   }, [])
 
 const handleEdit = () => {}
@@ -33,7 +33,7 @@ const handleDelete = async () => {}
     <Profile
         name="My profile"
         desc="This is your profile page"
-        data={[]}
+        data={posts}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
     />
